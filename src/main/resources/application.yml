@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: acl.master1.user
+  datasource:
+     driver-class-name: org.postgresql.Driver
+     url: ${DB_URL:jdbc:postgresql://localhost:5432/aclUsers}
+     username: ${DB_USER:acl_users}
+     password: ${DB_PASSWORD:changeme}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
