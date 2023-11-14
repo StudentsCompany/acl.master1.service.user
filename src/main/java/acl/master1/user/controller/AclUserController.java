@@ -76,4 +76,9 @@ public class AclUserController {
 		
 		return "Token is validate";
 	}
+
+	@GetMapping("/{username}")
+	public AclUserDTO getByUsername(@PathVariable("username") String username) {
+		return aclUserService.getByUsername(username);
+	}
 }

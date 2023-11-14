@@ -54,4 +54,8 @@ public class AclUserService {
 	public void validateToken(String token) {
 		jwtService.validateToken(token);
 	}
+
+	public AclUserDTO getByUsername(String username) {
+		return aclUserMapper.convert(aclUserRepository.findByUsername(username));
+	}
 }
