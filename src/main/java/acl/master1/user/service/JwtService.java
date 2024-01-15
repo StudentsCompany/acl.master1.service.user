@@ -2,24 +2,50 @@ package acl.master1.user.service;
 
 import java.security.Key;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.jsonwebtoken.*;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+
+//import org.springframework.security.oauth2.jwt.Jwt;
+//import org.springframework.security.oauth2.jwt.JwtDecoder;
+//import org.springframework.security.oauth2.jwt.JwtDecoderFactory;
 
 @Service
 public class JwtService {
 	
 	public static final String SECRET = "JeSuisLeSelDeLaTerreUneVilleSitueeSurUneMontagneLaLumiereDuMonde";
-	
+
+//	final JwtDecoder decoder = new JwtDecoder() {
+//
+//		@SneakyThrows
+//		@Override
+//		public Jwt decode(String token) throws JwtException {
+//			JWT jwt = JWTParser.parse(token);
+//			return createJwt(token, jwt);
+//		}
+	public String getUsernameByToken(String token) {
+		String[] chunks = token.split("\\.");
+
+		Base64.Decoder decoder = Base64.getUrlDecoder();
+
+		String header = new String(decoder.decode(chunks[0]));
+		String payload = new String(decoder.decode(chunks[1]));
+		String[] str = payload.split(",");
+		String res = str[0].split(":")[1];
+		res = res.replace("\"", "");
+		System.out.println("header : " + header + ", payload : " + payload);
+		System.out.println("RES : " + res);
+		return res;
+	}
+
 	
 	public Jws<Claims> validateToken(final String token){
 		Jws<Claims> claimsJws = Jwts.parserBuilder()
@@ -43,7 +69,7 @@ public class JwtService {
 	}
 	
 	/**
-	 * This method sign our secret key
+	 * This method sign our secret keyp
 	 * @return
 	 */
 	private Key getSignKey() {

@@ -18,8 +18,4 @@ public interface AclUserRepository extends CrudRepository<AclUser, Integer> {
 	List<AclUser> findAll();
 
 	AclUser findByUsername(String username);
-
-
-	
-	
 }

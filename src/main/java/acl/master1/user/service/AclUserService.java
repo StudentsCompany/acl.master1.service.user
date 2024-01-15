@@ -58,4 +58,10 @@ public class AclUserService {
 	public AclUserDTO getByUsername(String username) {
 		return aclUserMapper.convert(aclUserRepository.findByUsername(username));
 	}
+
+	public AclUserDTO getByToken(String token) {
+		return this.aclUserMapper.convert(aclUserRepository.findByUsername(this.jwtService.getUsernameByToken(token)));
+	}
+
+
 }
